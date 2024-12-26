@@ -10,18 +10,6 @@ print(v)
 '''
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 ##Prgm to get the dictionary in capital letters
 '''
 ##d={'a':'z','z':'y','y':'x','x':'w','w':'v','v':'u','u':'t','t':'s','s':'r','r':'q','q':'p','p':'o','o':'n','n':'m','m':'l','l':'k','k':'j','j':'i','i':'h','h':'g','g':'f','f':'e','e':'d','d':'c','c':'b','b':'a'}
@@ -59,35 +47,4 @@ for i in range(len(S)):
     else:
         A+=d[S[i]]
 print(A)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
