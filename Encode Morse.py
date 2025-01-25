@@ -22,6 +22,9 @@ for i in range(len(S)):
     elif S[i] in d :
         A+=d[S[i]]
         A+=' '
+    else:
+       A+=S[i]
+       A+=' '
     
 print(A)
 print()
