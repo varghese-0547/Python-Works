@@ -32,10 +32,13 @@ A=''
 for i in t:
     if i=='$':
         A+=' '
-    
+        continue
+
     
     if i in d:
         A+=d[i]
+    else:
+        A+=i
     
 print(A)
 
