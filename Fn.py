@@ -1,6 +1,6 @@
 def Fees():
     import mysql.connector as mc
-    con=mc.connect(host='localhost',user='root',passdw='root',database='EDUSchool')
+    con=mc.connect(host='localhost',user='root',passwd='root',database='EDU_School')
     cur=con.cursor
     q='select admno, name, class, fees from T1 where admno={}'.format(_ADMNO)
     cur.execute(q)
@@ -12,7 +12,7 @@ def Fees():
 
 def Trnspt():
     import mysql.connector as mc
-    con=mc.connect(host='localhost',user='root',passdw='root',database='EDUSchool')
+    con=mc.connect(host='localhost',user='root',passwd='root',database='EDU_School')
     cur=con.cursor
     q='select * from T1 where admno={}'.format(_ADMNO)
     cur.execute(q)
@@ -39,40 +39,33 @@ def Results():
 ##########################################################################################
 def Add():
     import mysql.connector as mc
-    con=mc.connect(host='localhost',user='root',passdw='root',database='EDUSchool')
+    con=mc.connect(host='localhost',user='root',passwd='root',database='EDU_School')
     cur=con.cursor
-    _n=input()
-    _dob=input()
-    _fn=input()
-    _mn=input()
-    _ph=int(input())
-    _adrs=input()
-    q="insert into T1 values(f'{_n},{ _dob}, {_fn}, {_mn}, {_ph}, {_adrs} )"
+    _n=input('Name :')
+    _dob=input('DOB :')
+    _fn=input("Father's name:")
+    _fjob=input("Father's job")
+    _ph=int(input("Phno :"))
+    
+    n='select count(adnmo) from eduschool'
+    cur.execute(n)
+    nn=cur.fetchall()
+    q=f"insert into T1 values(f'{nn+1001},{_n},{ _dob}, {_fn}, {_fjob}, {_ph} )"
     cur.execute(q)
     con.commit()
     cur.close()
     con.close()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+##########################################################################################
+def Login():
+    import mysql.connector as mc
+    con=mc.connect(host='localhost',user='root',passwd='root',database='EDU_School')
+    cur=con.cursor
+    q='select * from T1 where admno={}'.format(_ADMNO)
+    cur.execute(q)
+    rs=cur.fetchall()
+    cur.close()
+    con.close()
+    if _Admno not in rs:
+        s='no'
+    elif _Admno in rs:
+        print(f'Welcome {rs[1]}')
