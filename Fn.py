@@ -19,6 +19,7 @@ def Add():
     con.commit()
     cur.close()
     con.close()
+    print("Data added successfully ")
 ##########################################################################################
 
 def Login():
@@ -102,7 +103,9 @@ def Edit():
         q="update eduschool set name = '{a}' where admno = {_Admno}")
         cur.execute(q)
         con.commite()
-
+    cur.close()
+    con.close()
+    print("Successfully updated")
 
 
 
