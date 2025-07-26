@@ -1,0 +1,27 @@
+ADMNO : 1001
+Name : Jeyendu
+DOB : 29-02-20010
+Parent Name : Jayaram
+Phno :9895074300
+Class : 10
+
+ADMNO : 1002
+Name : Pooja
+DOB : 29-02-20010
+Parent Name : M.G Muralidharan
+Phno :9895074300
+Class : 10
+
+ADMNO : 1003
+Name : Mariya
+DOB : 29-02-20010
+Parent Name : John
+Phno :9895074300
+Class : 10
+
+ADMNO : 1004
+Name : Mariyam
+DOB : 29-02-2011
+Parent Name : Reji
+Phno :9895074300
+Class : 9
