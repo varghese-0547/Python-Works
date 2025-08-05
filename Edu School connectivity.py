@@ -1,4 +1,4 @@
-from Fn import *
+from FnConnectivity import *
 while True:
     
     print("\n===============================EDU Public School===============================")
@@ -36,6 +36,7 @@ while True:
             print("1 = Student name\n2 = DOB3 = Father name\n4 = Father job\n5 = Phno")
             _ch=int(input("Enter choice :"))
             Edit()
+
 
 
 
