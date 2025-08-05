@@ -37,8 +37,7 @@ def Add(_class,_fees):
     _ph=int(input("Phno :"))
     c=_class
     F=_fees
-    print("If you enter any of your record incorrectly just submission")
-    print("Go to the editting window to edit the records")
+    
     s=input("Do you wish to continue submission y/n:")
     if s in ['y','Y','yes','Yes','YES']:
         data=[_rno,_n,_dob,_pn,_ph,c,F]
@@ -95,6 +94,7 @@ def DisplayAll():
 ##########################################################################################
 
 def Edit():
+    _=0
     print("\n*****Edit*****\n")
     fr=open("Rec.dat","rb")
     stu=load(fr)
@@ -104,16 +104,14 @@ def Edit():
     for i in stu:
         if i[0]==r:
             print(i)
-    print("1 Edit Name")
-    print("2 Edit DOB")
-    print("3 Edit Father Name")
-    print("4 Phno")
-    print("5 Edit Class")
-    print("6 Edit Fees\n")
-    _ch=int(input("Enter choice :"))
-
-    for i in stu:
-        if i[0]==r:
+            _=1
+            print("\n1 Edit Name")
+            print("2 Edit DOB")
+            print("3 Edit Father Name")
+            print("4 Phno")
+            print("5 Edit Class")
+            print("6 Edit Fees\n")
+            _ch=int(input("Enter choice :"))
             if _ch==1:
                 a=input("Enter name :")
                 i[1]=a
@@ -141,8 +139,11 @@ def Edit():
                 fw.close()
                 print("Successfully updated")
                 break
-    else:
-        print("No updates were done")
+            else:
+                print("No updates were done")
+
+    if _=0:
+        print("Invalid Admission number")
 
 
 #Edit()
@@ -180,4 +181,5 @@ def Results():
     today = date.today()
     d1 = today.strftime("%d/%m/%Y")
     print("No results have been published till",d1)
+
 
