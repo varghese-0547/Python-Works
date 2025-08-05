@@ -1,4 +1,4 @@
-from MFn import *
+from BinFilesFn import *
 while True:
     
     print("\n===============================EDU Public School===============================")
@@ -22,7 +22,7 @@ while True:
             print("Invalid Admission number\nTry again")
             continue
         print("\nWelcome", p)
-        print("1 = Fees\n3 = Projects\n3 = Edit Profile")
+        print("1 = Fees\n2 = Projects")
         _ch=input("Please enter your choice :")
         if _ch=='1':
             Fees(_Admno)
@@ -40,6 +40,7 @@ while True:
     if C in ['n','N','No','no',]:
         print("Have a nice day")
         break
+
 
 
 
