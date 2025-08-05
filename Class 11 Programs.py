@@ -9,16 +9,11 @@ while i<n:
 print('While loop :',f)
 f.clear()
 
-
-
 for i in range(1,n):
     if n%i ==0:
         f.append(i)
 print('For loop :',f)
 '''
-
-
-
 
 #Prgm to check the character is alphabet or not
 '''
@@ -33,7 +28,6 @@ elif _>='a' and _<='z':
 
 else :
     print("It's not a valid alphabet")
-
 '''
 
 '''
@@ -44,7 +38,6 @@ if _.isalpha():
     else :
         print("It's corresponding upper casse is",_.upper())
 '''
-
 
 # Prgm to check discriminant
 '''
@@ -66,9 +59,6 @@ else :
     print("It's not a quadratic polynomial")
 '''
 
-
-
-
 #Prgm to find odd or even
 '''
 n=int(input("Enter a number : "))
@@ -77,9 +67,6 @@ if n%2 == 0:
 else :
     print("The number is odd and it's qube is ",n**3)
 '''
-
-
-
 
 #Prgm to find annual salary
 '''
@@ -96,9 +83,6 @@ if PA>=500000 :
     print("You should pay Rs.",IT,"as income tax annually.")
 '''
 
-
-
-
 #Prgm to check nationality
 '''
 x=input("Enter your nationality : ")
@@ -108,9 +92,7 @@ else :
     print("Sorry, you are not an Indian")
 '''
 
-
 #prgm to find greatest of three no.s
-
 '''
 a=float(input("Enter a number"))
 b=float(input("Enter another number"))
@@ -125,10 +107,7 @@ else :
     print(a)
 '''
 
-
-
 #Calculate commission based on sales
-
 '''
 s=int(input("Enter sales : "))
 if s>50000 :
@@ -145,8 +124,6 @@ else :
 '''
 
 #Prgm to check whether the character is alphabet, digit, space
-
-
 '''
 ch=input("Enter a character")
 if ch>='a' and ch<='z' or ch>='A' and ch<='Z':
@@ -161,11 +138,7 @@ elif ch==' ':
     print("Space")
 '''
 
-
-
 #Prgm to calculate BMI 
-
-
 '''
 W=float(input("Enter your wiaght in kilogram"))
 H=float(input("Enter your height in meter"))
@@ -180,13 +153,7 @@ elif BMI > 30:
     print("Your BMI is",BMI,"\nCategory : Obesity")
 '''
 
-
-
-
-
 # Prgm to find average
-
-
 '''
 i=0
 s=0
@@ -200,13 +167,7 @@ print("Average is =",s/n)
 
 '''
 
-
-
 #Read a number and find the factors
-
-
-
-
 '''
 a=int(input("Enter a number : "))
 i=1
@@ -221,12 +182,7 @@ print("Factors of",a,"is\n",l)
 
 '''
 
-
-
 #sum of n nos ending with 10
-
-
-
 '''
 n=int(input("Enter the limit : "))
 i=0
@@ -239,7 +195,6 @@ while i<n :
 print (s)
 
 '''
-
 
 #Prgm to check the occurence of the number 50
 
@@ -254,12 +209,7 @@ while n :
 print(c)
 '''
 
-
-
 #Prgm to find the factors of n numbers
-
-
-
 '''
 n=int(input("Enter a number : "))
 i=1
@@ -272,12 +222,7 @@ while i<=n:
 print(l)
 '''
 
-
-
-
 #Prgm to read a number and reverse it
-
-
 '''
 a=int(input("Enter a number : "))
 r=0
@@ -290,10 +235,7 @@ print (r)
 
 '''
 
-
-
 #Prgm for Palindrome
-
 '''
 a=int(input("Enter a number : "))
 r=0
@@ -308,8 +250,15 @@ else:
     print("Not palindrome")
 '''
 
-
-
+#Simple palindrome
+'''
+s=input("String :")
+p=s[::-1]
+if p==s:
+    print("Palindrome")
+else:
+    print("Not palindrome")
+'''
 
 #Prgm to print multiplication table of nos upto 10
 
@@ -317,15 +266,9 @@ else:
 a=int(input("Enter a number : "))
 for i in range(1,11):
     print(i,'*',a,'=',i*a)
-        
-
-
 '''
 
-
 #Sum of n numbers (+ve and -ve separately)
-
-
 '''
 n=int(input("Limit : "))
 s1=s2=0
@@ -338,11 +281,7 @@ for i in range(n):
 print("Sum of odd",s2,"Sum of even",s1)
 '''
 
-
-
 #Prime or not
-
-
 '''
 a=int(input())
 if a<2:
@@ -359,40 +298,27 @@ elif a>2:
         print("Prime")
 '''
 
-
-
 '''
 for i in range (6):
     for j in range (i):
         print(i,end='')
     print()
-
-
-
 for i in range (6):
     for j in range (i,0,-1):
         print(j,end='')
     print()
 print()
-
 for i in range (6,0,-1):
     for j in range (1,i):
         print(j,end='')
     print()
-
-
 for i in range (6,0,-1):
     for j in range (i,0,-1):
         print(j,end='')
     print()
 '''
 
-
-
-
 ##Perfect number
-
-
 '''
 s=0
 n=int(input("Enter a number : "))
@@ -401,9 +327,7 @@ for i in range(1,n):
         s+=i
 if s==n :
     print("Perfect")
-
 '''
-
 
 ##Factorial
 '''
@@ -413,7 +337,6 @@ for i in range(1,n+1):
     s*=i
 print(s)
 
-
 for i in range(1,4):
     for j in range(i+1):
         print(i,end=' ')
@@ -422,10 +345,7 @@ l=[1,2,3]
 print( in )
 '''
 
-
 ##Prgm to count the no of occurence of each letter in a sentence
-
-
 '''
 d={}
 s='mekarakkattu gangadanpanikkar makal pooja'
@@ -438,13 +358,10 @@ print(d)
 '''
 
 ##Prgm with slicing
-
 '''
 s='ComputerScience'
 print(s[::2][::-1],s[::-1])
 '''
-
-
 
 ##Prgm to count the frequency of occurence of 10 different random numbers
 '''
@@ -461,6 +378,7 @@ for i in l:
         d[i]=1
 print(d)
 '''
+
 '''
 s=0
 n=[1,2,3,4,5,6,7,8]
@@ -471,7 +389,6 @@ for k in n:
     if s==k:
         print(k)
 '''
-
 '''
 l=[]
 a=int(input("Enter a number : "))
@@ -581,6 +498,7 @@ for i in range(1,n+1):
     s+=(1/factorial(n))
 print(s)
 '''
+
 
 
 
