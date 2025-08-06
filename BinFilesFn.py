@@ -27,8 +27,8 @@ def Add(_class,_fees):
         _rno=1001
 
     #f.close()
-    print("Do not close the program while entering Data\nThe data you entered will be lost")
-    print("If you enter any of your record incorrectly just submission")
+    print("Do not close the program while entering Data or data you entered will be lost")
+    print("If you enter any of your record incorrectly just submit")
     print("Go to the editting window to edit the records")
     print(_rno)
     _n=input('Name :')
@@ -181,5 +181,6 @@ def Results():
     today = date.today()
     d1 = today.strftime("%d/%m/%Y")
     print("No results have been published till",d1)
+
 
 
