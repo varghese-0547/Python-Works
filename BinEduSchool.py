@@ -15,7 +15,7 @@ while True:
         else:
             print("Invalid Class\Try again")
 
-    if ch=='2':
+    elif ch=='2':
         _Admno=int(input("Enter your admission number :"))
         p=Login(_Admno)
         if p==0:
@@ -31,17 +31,15 @@ while True:
             Projects()
         else:
             print("Invalid choice")
-    if ch=='3':
+    elif ch=='3':
         DisplayAll()
 
-    if ch=='4':
+    elif ch=='4':
         Edit()
+    else:
+        print("\n\t\tINVALID CHOICE\n\t\t  TRY AGAIN")
+        continue
     C=input("\n\nDo you wish to continue y/n:")
     if C in ['n','N','No','no',]:
         print("Have a nice day")
         break
-
-
-
-
-
