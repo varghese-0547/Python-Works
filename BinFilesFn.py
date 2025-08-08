@@ -142,7 +142,7 @@ def Edit():
             else:
                 print("No updates were done")
 
-    if _=0:
+    if _==0:
         print("Invalid Admission number")
 
 
@@ -181,6 +181,7 @@ def Results():
     today = date.today()
     d1 = today.strftime("%d/%m/%Y")
     print("No results have been published till",d1)
+
 
 
 
