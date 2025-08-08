@@ -3,7 +3,7 @@ while True:
     
     print("\n===============================EDU Public School===============================")
 
-    print("1 = Admission\n2 = Login\n3 = Display all records\n4 = Edit Records")
+    print("1 = Admission\n2 = Login\n3 = Display all records\n4 = Edit Records\n0 = Exit")
     ch=input("Please enter your choice :")
 
     if ch=='1':
@@ -14,7 +14,6 @@ while True:
             Add(_class,_fees)
         else:
             print("Invalid Class\Try again")
-
     elif ch=='2':
         _Admno=int(input("Enter your admission number :"))
         p=Login(_Admno)
@@ -26,20 +25,17 @@ while True:
         _ch=input("Please enter your choice :")
         if _ch=='1':
             Fees(_Admno)
-
         elif _ch=='2':
             Projects()
         else:
             print("Invalid choice")
     elif ch=='3':
         DisplayAll()
-
     elif ch=='4':
         Edit()
+    elif ch=='0':
+        break
     else:
         print("\n\t\tINVALID CHOICE\n\t\t  TRY AGAIN")
         continue
-    C=input("\n\nDo you wish to continue y/n:")
-    if C in ['n','N','No','no',]:
-        print("Have a nice day")
-        break
+        
