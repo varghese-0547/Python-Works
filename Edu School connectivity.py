@@ -10,44 +10,30 @@ while True:
         _class= int(input("Enter the class : "))
         if _class<=10:
             try:
-                Add()
+                Add(_class)
             except ModuleNotFoundError:
                 print("Please install MySQL and import the required lib")
                 continue
 
     if ch==2:
-        _ADMNO=input("Enter your admission number :")
-        Login()
+        _Admno=input("Enter your admission number :")
+        I=Login(_Admno)
         
-        if s=='no':
+        if I is None:
             print("Invalid Admission number\nTry again")
             continue
-        print("1 = Fees\n2 = Transportation\n3 = Projects\n4 = Edit Profile")
-        ch=int(input("Please enter your choice :"))
+        print("1 = Fees\n2 = Projects\n3 = Edit Profile")
+        _ch=int(input("Please enter your choice :"))
         
-        if ch==1:
+        if _ch==1:
             Fees()
 
-        elif ch==3:
+        elif _ch==2:
             Projects()
 
-        elif ch==4:
+        elif _ch==3:
             print("You can modify the following data")
-            print("1 = Student name\n2 = DOB3 = Father name\n4 = Father job\n5 = Phno")
+            print("1 = Student name\n2 = DOB\n3 = Father name\n4 = Father job\n5 = Phno")
             _ch=int(input("Enter choice :"))
-            Edit()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            Edit(I[0])
 
