@@ -75,14 +75,14 @@ def Results():
     d1 = today.strftime("%d/%m/%Y")
     print("No results have been published till",d1)
 ##########################################################################################
-def Edit():
+def Edit(_Admno):
     import mysql.connector as mc
     con=mc.connect(host='localhost',user='root',passwd='root',database='EDU_School')
     cur=con.cursor()
     if _ch==1:
         a=input("Enter name :")
         q="update EDUSCHOOL set NAME = %s where ADMNO = %s"
-        cur.execute(q)
+        cur.execute(q. (a,_Admno))
         con.commit()
     elif _ch==2:
         a=input("Enter new DOB :")
@@ -107,6 +107,7 @@ def Edit():
     cur.close()
     con.close()
     print("Successfully updated")
+
 
 
 
