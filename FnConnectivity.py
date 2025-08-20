@@ -1,7 +1,7 @@
-def Add():
+def Add(_class):
     import mysql.connector as mc
     con=mc.connect(host='localhost',user='root',passwd='root',database='EDU_School')
-    cur=con.cursor
+    cur=con.cursor()
     _n=input('Name :')
     _dob=input('DOB :')
     _pn=input("Parent's name:")
@@ -22,19 +22,20 @@ def Add():
     print("Data added successfully ")
 ##########################################################################################
 
-def Login():
+def Login(_Admno):
     import mysql.connector as mc
     con=mc.connect(host='localhost',user='root',passwd='root',database='EDU_School')
-    cur=con.cursor
-    q='select * from eduschool where admno={}'.format(_ADMNO)
-    cur.execute(q)
+    cur=con.cursor()
+    q='select * from eduschool where admno=%s'
+    cur.execute(q, (_Admno))
     rs=cur.fetchall()
     cur.close()
     con.close()
-    if _Admno not in rs:
-        s='no'
-    elif _Admno in rs:
-        print(f'Welcome {rs[1]}')
+    for i in rs:
+        if i[0]==_Admno:
+            return i
+
+
 ##########################################################################################
 def Addfees():
     
@@ -50,9 +51,9 @@ def Addfees():
 def Fees():
     import mysql.connector as mc
     con=mc.connect(host='localhost',user='root',passwd='root',database='EDU_School')
-    cur=con.cursor
-    q='select admno, name, class, fees from FeeTable where admno={}'.format(_ADMNO)
-    cur.execute(q)
+    cur=con.cursor()
+    q='select admno, name, class, fees from FeeTable where admno=%s'
+    cur.execute(q, (_Admno))
     rs=cur.fetchall()
     print(rs)
     cur.close()
@@ -77,32 +78,32 @@ def Results():
 def Edit():
     import mysql.connector as mc
     con=mc.connect(host='localhost',user='root',passwd='root',database='EDU_School')
-    cur=con.cursor
+    cur=con.cursor()
     if _ch==1:
         a=input("Enter name :")
-        q="update eduschool set name = '{a}' where admno = {_Admno}")
+        q="update EDUSCHOOL set NAME = %s where ADMNO = %s"
         cur.execute(q)
-        con.commite()
+        con.commit()
     elif _ch==2:
         a=input("Enter new DOB :")
-        q="update eduschool set name = '{a}' where admno = {_Admno}")
-        cur.execute(q)
-        con.commite()
+        q="update EDUSCHOOL set DOB = %s where ADMNO = %s"
+        cur.execute(q, (a,_Admno))
+        con.commit()
     elif _ch==3:
         a=input("Enter Father name:")
-        q="update eduschool set name = '{a}' where admno = {_Admno}")
-        cur.execute(q)
-        con.commite()
+        q="update EDUSCHOOL set NAME = %s where ADMNO = %s"
+        cur.execute(q, (a,_Admno))
+        con.commit()
     elif _ch==4:
         a=input("Enter Father job:")
-        q="update eduschool set name = '{a}' where admno = {_Admno}")
-        cur.execute(q)
-        con.commite()
+        q="update EDUSCHOOL set FJOB = %s where ADMNO = %s"
+        cur.execute(q, (a,_Admno))
+        con.commit()
     elif _ch==5:
         a=input("Enter new Phno :")
-        q="update eduschool set name = '{a}' where admno = {_Admno}")
-        cur.execute(q)
-        con.commite()
+        q="update EDUSCHOOL set PHNO = %s where ADMNO = %s"
+        cur.execute(q, (a,_Admno))
+        con.commit()
     cur.close()
     con.close()
     print("Successfully updated")
