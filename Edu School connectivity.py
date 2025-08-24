@@ -1,39 +1,63 @@
-from FnConnectivity import *
+from Fnconnectivity import *
 while True:
     
     print("\n===============================EDU Public School===============================")
 
-    print("1 = Admission\n2 = Login")
-    ch=int(input("Please enter your choice :"))
-    if ch==1:
-        print("Select the class",1,2,3,4,5,6,7,8,9,10)
-        _class= int(input("Enter the class : "))
-        if _class<=10:
-            try:
-                Add(_class)
-            except ModuleNotFoundError:
-                print("Please install MySQL and import the required lib")
-                continue
+    print("1 = Admin Login\n2 = Parent Login")
+    c=input("Enter choice :")
+    if c=='1':
+        #while True:
+        print("\n===============================  Host  ===============================")
+        while True:
+            print('''\n\n0 = Log Out
+1 = Admission
+2 = Display all records
+3 = Edit Records
+4=Delete Records''')
+            ch=input("Please enter your choice :")
+            if ch=='1':
+                print("Select the class",1,2,3,4,5,6,7,8,9,10)
+                Class= int(input("Enter the class : "))
+                if Class<=10:
+                    try:
+                        Add(Class)
+                    except ModuleNotFoundError:
+                        print("Please install MySQL and import the required lib")
+                        continue
+            elif ch=='2':
+                DisplayAll()
+            elif ch=='3':
+                Admno=int(input("\nEnter Admission number of\nthe record to be editted :"))
+                Edit(Admno)
+            elif ch=='4':
+                Admno=int(input("\nEnter Admission number of\nthe record to be deleted :"))
+                Delete(Admno)
+            elif ch=='0':
+                break
+            
 
-    if ch==2:
-        _Admno=input("Enter your admission number :")
-        I=Login(_Admno)
-        
+    if c=='2':
+        Admno=int(input("Enter your admission number :"))
+        pd=input("Enter password :")
+        I=Login(Admno,pd)
         if I is None:
-            print("Invalid Admission number\nTry again")
+            print("Try again\n")
             continue
-        print("1 = Fees\n2 = Projects\n3 = Edit Profile")
-        _ch=int(input("Please enter your choice :"))
-        
-        if _ch==1:
-            Fees()
+        while True:
+            print("\n=============================== Parent ===============================\n")
+            print("Welcome",I)
+            print("\n\n0 = Log Out\n1 = Fees\n2 = Projects\n3 = Display your details")
+            ch=input("Please enter your choice :")
+            if ch=='1':
+                  Fees(Admno)
+            elif ch=='2':
+                 Projects()
+            elif ch=='3':
+               Display(Admno)
+            elif ch=='0':
+                break
+            
+    if c=='0':
+        break
 
-        elif _ch==2:
-            Projects()
-
-        elif _ch==3:
-            print("You can modify the following data")
-            print("1 = Student name\n2 = DOB\n3 = Father name\n4 = Father job\n5 = Phno")
-            _ch=int(input("Enter choice :"))
-            Edit(I[0])
 
