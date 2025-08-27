@@ -44,20 +44,23 @@ def Login1(Admno):
     if rs :
         return rs
 
-def Login(Admno,pd):
-
-    with open("Login.dat","rb") as fr:
-        try:
-            while True :
-                stu = load(fr)
-                for k,v in stu.items():
-                    if k == Admno and v == pd:
-                        l = Login1(Admno)
-                        return l[1]
-
-        except EOFError:
-            pass
-    print("Login/Password is wrong")
+def Login(Admno):
+    a=0
+    while a<3:
+        pd=input("Enter password :")
+        with open("Login.dat","rb") as fr:
+            try:
+                while True :
+                    stu = load(fr)
+                    for k,v in stu.items():
+                        if k == Admno and v == pd:
+                            l = Login1(Admno)
+                            return l[1]
+            except EOFError:
+                pass
+        a+=1
+        print("Login/Password is wrong")
+    print("Acces denied. Too many failed attempts.")
     return None
 def Addfees(Class):
     if Class<=3:
@@ -157,13 +160,33 @@ def Delete(Admno):
     con = mc.connect(host='localhost', user='root', passwd='root', database='Project')
     cur = con.cursor()
     try:
-    
         q1="DELETE FROM fees WHERE admno = %s"
         cur.execute(q1,(Admno,))
         q="DELETE FROM school WHERE admno = %s"
         cur.execute(q,(Admno,))
         con.commit()
-        print("Successfully Deleted")
+        stu=[]
+        n=[]
+        found = False
+        with open("Login.dat","rb") as fr:
+            try:
+                while True :
+                    stu.append(load(fr))
+            except EOFError:
+                pass
+            
+        for i in stu :
+            if Admno in i:
+                print("Deleted :",i)
+                found = True
+            else:
+                n.append(i)
+        if found : 
+            with open("Login.dat","wb") as fw:
+                for i in n:
+                    dump(i,fw)
+        else:
+            print("Record not found")
     except Exception as e :
         con.rollback()
         print("Error :",e)
