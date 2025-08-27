@@ -38,8 +38,8 @@ while True:
 
     if c=='2':
         Admno=int(input("Enter your admission number :"))
-        pd=input("Enter password :")
-        I=Login(Admno,pd)
+
+        I=Login(Admno)
         if I is None:
             print("Try again\n")
             continue
