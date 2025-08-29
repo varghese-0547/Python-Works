@@ -6,7 +6,15 @@ while True:
     print("1 = Admin Login\n2 = Parent Login")
     c=input("Enter choice :")
     if c=='1':
-        #while True:
+        a = Login()
+        if a is not True:
+            print("Invalid choice. Try again.")
+            continue
+        else:
+            pass
+    
+            
+            
         print("\n===============================  Host  ===============================")
         while True:
             print('''\n\n0 = Log Out
@@ -27,19 +35,18 @@ while True:
             elif ch=='2':
                 DisplayAll()
             elif ch=='3':
-                Admno=int(input("\nEnter Admission number of\nthe record to be editted :"))
-                Edit(Admno)
+                User=int(input("\nEnter Admission number of\nthe record to be editted :"))
+                Edit(User)
             elif ch=='4':
-                Admno=int(input("\nEnter Admission number of\nthe record to be deleted :"))
-                Delete(Admno)
+                User=int(input("\nEnter Admission number of\nthe record to be deleted :"))
+                Delete(User)
             elif ch=='0':
                 break
             
 
     if c=='2':
-        Admno=int(input("Enter your admission number :"))
-
-        I=Login(Admno)
+        User=int(input("Enter your admission number :"))
+        I=Login(User)
         if I is None:
             print("Try again\n")
             continue
@@ -49,11 +56,11 @@ while True:
             print("\n\n0 = Log Out\n1 = Fees\n2 = Projects\n3 = Display your details")
             ch=input("Please enter your choice :")
             if ch=='1':
-                  Fees(Admno)
+                  Fees(User)
             elif ch=='2':
                  Projects()
             elif ch=='3':
-               Display(Admno)
+               Display(User)
             elif ch=='0':
                 break
             
