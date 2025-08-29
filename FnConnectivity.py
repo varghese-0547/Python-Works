@@ -84,7 +84,7 @@ def Addfees(Class):
 def Fees(User):
     con, cur = Con_cur()
     q='SELECT admno, name, class, fee FROM fees WHERE admno=%s'
-    cur.execute(q, (Admno,))
+    cur.execute(q, (User,))
     rs=cur.fetchone()
     print(rs)
     cur.close()
@@ -105,7 +105,7 @@ def Display(User):
     con, cur = Con_cur()
     q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE admno = %s'''
-    cur.execute(q,(Admno,))
+    cur.execute(q,(User,))
     rs=cur.fetchone()
     print(rs)
     cur.close()
@@ -126,7 +126,7 @@ def Results():
 def Edit(User):
     con, cur = Con_cur()
     q1="SELECT * FROM school WHERE admno = %s"
-    cur.execute(q1,(Admno,))
+    cur.execute(q1,(User,))
     rs=cur.fetchone()
     print(rs)
     if rs[0]==User:
