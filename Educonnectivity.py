@@ -20,8 +20,9 @@ while True:
             print('''\n\n0 = Log Out
 1 = Admission
 2 = Display all records
-3 = Edit Records
-4=Delete Records''')
+3 = Display fee records
+4 = Edit Records
+5=Delete Records''')
             ch=input("Please enter your choice :")
             if ch=='1':
                 print("Select the class",1,2,3,4,5,6,7,8,9,10)
@@ -33,11 +34,13 @@ while True:
                         print("Please install MySQL and import the required lib")
                         continue
             elif ch=='2':
-                DisplayAll()
+                Display()
             elif ch=='3':
+                print("Fn on progress")
+            elif ch=='4':
                 User=int(input("\nEnter Admission number of\nthe record to be editted :"))
                 Edit(User)
-            elif ch=='4':
+            elif ch=='5':
                 User=int(input("\nEnter Admission number of\nthe record to be deleted :"))
                 Delete(User)
             elif ch=='0':
@@ -66,5 +69,3 @@ while True:
             
     if c=='0':
         break
-
-
