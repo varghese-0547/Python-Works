@@ -1,6 +1,6 @@
 import mysql.connector as mc
 from pickle import *
-
+from tabulate import tabulate
 def Con_cur():
     con = mc.connect(host='localhost', user='root', passwd='root', database='project')
     cur = con.cursor()
@@ -64,12 +64,10 @@ def Login(User='Bob'):
                             return l[1]
                         else:
                             continue
-
-                            
             except EOFError:
                 pass
         a+=1
-        print("Login/Password is wrong")
+        print("Login/Password is wrong\nTry again")
     print("Acces denied. Too many failed attempts.")
     return None
 def Addfees(Class):
@@ -90,24 +88,24 @@ def Fees(User):
     cur.close()
     con.close()
 
-def DisplayAll():
+def Display(User='A'):
     con, cur = Con_cur()
-    q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
+    if User=='A':
+        q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school'''
-    cur.execute(q)
-    rs=cur.fetchall()
-    for i in rs:
-        print(i)
-    cur.close()
-    con.close()
-
-def Display(User):
-    con, cur = Con_cur()
-    q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
+        cur.execute(q)
+        rs=cur.fetchall()
+        h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
+        print(tabulate(rs,headers=h,tablefmt="rounded_grid"))
+    else:
+        q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE admno = %s'''
-    cur.execute(q,(User,))
-    rs=cur.fetchone()
-    print(rs)
+        cur.execute(q,(User,))
+        rs=cur.fetchone()
+        h=[{'Admno':rs[0]},{'Name':rs[1]},{'DOB':rs[2]},{'Parent Name':rs[3]},
+           {'Parent Job':rs[4]},{'Phone no':rs[5]},{'Class':rs[6]}]
+        for i in h:
+           print(i)
     cur.close()
     con.close()
 
