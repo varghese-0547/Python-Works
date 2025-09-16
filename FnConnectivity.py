@@ -97,7 +97,21 @@ parent_name, parent_job, phone, class FROM school'''
         rs=cur.fetchall()
         h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
         print(tabulate(rs,headers=h,tablefmt="rounded_grid"))
-    else:
+    if User == 'B':
+        q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
+parent_name, parent_job, phone, class FROM school ORDER BY class'''
+        cur.execute(q)
+        rs=cur.fetchall()
+        h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
+        print(tabulate(rs,headers=h,tablefmt="rounded_grid"))
+    if User == 'C':
+        q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
+parent_name, parent_job, phone, class FROM school ORDER BY dob'''
+        cur.execute(q)
+        rs=cur.fetchall()
+        h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
+        print(tabulate(rs,headers=h,tablefmt="rounded_grid"))
+    if type(User) is int:
         q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE admno = %s'''
         cur.execute(q,(User,))
@@ -108,7 +122,7 @@ parent_name, parent_job, phone, class FROM school WHERE admno = %s'''
            print(i)
     cur.close()
     con.close()
-
+##Display('C')
 def Projects():
     from datetime import date
     today = date.today()
@@ -138,7 +152,7 @@ def Edit(User):
             con.commit()
         elif _ch=='2':
             a=input("Enter new DOB :")
-            q="UPDATE school SET bob = %s WHERE admno = %s"
+            q="UPDATE school SET dob = %s WHERE admno = %s"
             cur.execute(q, (a,User))
             con.commit()
         elif _ch=='3':
