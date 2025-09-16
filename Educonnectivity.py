@@ -19,7 +19,7 @@ while True:
         while True:
             print('''\n\n0 = Log Out
 1 = Admission
-2 = Display all records
+2 = Display records
 3 = Display fee records
 4 = Edit Records
 5=Delete Records''')
@@ -34,7 +34,14 @@ while True:
                         print("Please install MySQL and import the required lib")
                         continue
             elif ch=='2':
-                Display()
+                print("\n1. Display all records\n2. Sort by Class\n3. Sort by Date of Admission")
+                op=input("Choice :")
+                if op == '1':
+                    Display()
+                elif op == '2':
+                    Display('B')
+                elif op =='3':
+                    Display('C')
             elif ch=='3':
                 print("Fn on progress")
             elif ch=='4':
@@ -69,3 +76,5 @@ while True:
             
     if c=='0':
         break
+
+
