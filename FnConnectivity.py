@@ -15,13 +15,13 @@ def Add(Class):
     _ph=int(input("Phno :"))
     Class
 
-    n='SELECT COUNT(admno) FROM SCHOOL'
+    n='SELECT MAX(admno) FROM SCHOOL'
     cur.execute(n)
     nn=cur.fetchone()
     if nn[0] is None:
         User=1001
     else:
-        User=nn[0]+1001
+        User=nn[0]+1
     Fee=Addfees(Class)
     q="INSERT INTO school VALUES(%s,%s,%s,%s,%s,%s,%s)"
     q1="INSERT INTO fees VALUES(%s,%s,%s,%s)"
@@ -211,3 +211,4 @@ def Delete(User):
     finally:
         cur.close()
         con.close()
+
