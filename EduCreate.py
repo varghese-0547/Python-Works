@@ -3,8 +3,8 @@ import mysql.connector as mc
 con = mc.connect(host="localhost", user="root", passwd="root")
 cur = con.cursor()
 # create database if not exists
-cur.execute("CREATE DATABASE IF NOT EXISTS Project")
-cur.execute("USE Project")
+cur.execute("CREATE DATABASE IF NOT EXISTS eduschool")
+cur.execute("USE eduschool")
 # create school table
 cur.execute("""
 CREATE TABLE IF NOT EXISTS school (
@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS fees (
     name VARCHAR(30),
     class INT,
     fee INT,
+    doa DATE,
     FOREIGN KEY(admno) REFERENCES school(admno)
 )
 """)
@@ -31,7 +32,6 @@ con.commit()
 cur.close()
 con.close()
 print("Database and tables created successfully.")
-
 from pickle import *
 d={"Admin":"Admin@Eduschool"}
 with open("Login.dat","wb") as fw:
