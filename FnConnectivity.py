@@ -1,11 +1,15 @@
 import mysql.connector as mc
 from pickle import *
 from tabulate import tabulate
+from datetime import date
+def Date():
+    global d1
+    today = date.today()
+    d1 = today.strftime("%Y-%m-%d")
 def Con_cur():
-    con = mc.connect(host='localhost', user='root', passwd='root', database='project')
-    cur = con.cursor()
+    con=mc.connect(host='localhost', user='root', passwd='root', database='eduschool')
+    cur=con.cursor()
     return con, cur
-
 def Add(Class):
     con, cur = Con_cur()
     _n=input('Name :')
@@ -13,8 +17,7 @@ def Add(Class):
     _pn=input("Parent's name:")
     _pjob=input("Parent's job:")
     _ph=int(input("Phno :"))
-    Class
-
+    Date()  # Get current date for DOA
     n='SELECT MAX(admno) FROM SCHOOL'
     cur.execute(n)
     nn=cur.fetchone()
@@ -24,9 +27,9 @@ def Add(Class):
         User=nn[0]+1
     Fee=Addfees(Class)
     q="INSERT INTO school VALUES(%s,%s,%s,%s,%s,%s,%s)"
-    q1="INSERT INTO fees VALUES(%s,%s,%s,%s)"
+    q1="INSERT INTO fees VALUES(%s,%s,%s,%s,%s)"
     cur.execute(q,(User, _n, _dob, _pn, _pjob, _ph, Class))
-    cur.execute(q1,(User, _n, Class, Fee))
+    cur.execute(q1,(User, _n, Class, Fee, d1))  # Added d1 for DOA
     con.commit()
     cur.close()
     con.close()
@@ -81,37 +84,49 @@ def Addfees(Class):
 
 def Fees(User):
     con, cur = Con_cur()
-    q='SELECT admno, name, class, fee FROM fees WHERE admno=%s'
+    q='SELECT admno, name, class, fee, DATE_FORMAT(doa, \'%d-%m-%Y\') FROM fees WHERE admno=%s'
     cur.execute(q, (User,))
     rs=cur.fetchone()
-    print(rs)
+    if rs:
+        h=['Admno','Name','Class','Fee','Date of Admission']
+        print(tabulate([rs],headers=h,tablefmt="rounded_grid"))
+    else:
+        print("No fee record found")
     cur.close()
     con.close()
 
 def Display(User='A'):
     con, cur = Con_cur()
-    if User=='A':
+    if User=='A':#Display all
         q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school'''
         cur.execute(q)
         rs=cur.fetchall()
         h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
         print(tabulate(rs,headers=h,tablefmt="rounded_grid"))
-    if User == 'B':
+    if User == 'Class':#Order by Class
         q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school ORDER BY class'''
         cur.execute(q)
         rs=cur.fetchall()
         h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
         print(tabulate(rs,headers=h,tablefmt="rounded_grid"))
-    if User == 'C':
+    if User == 'DOB':#Order by DOB
         q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school ORDER BY dob'''
         cur.execute(q)
         rs=cur.fetchall()
         h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
         print(tabulate(rs,headers=h,tablefmt="rounded_grid"))
-    if type(User) is int:
+    if User == 'S_DOA':#Order by DOA
+        q='''SELECT fees.admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
+parent_name, parent_job, phone, class FROM school NATURAL JOIN FEES ORDER BY doa'''
+        cur.execute(q)
+        rs=cur.fetchall()
+        h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
+        print(tabulate(rs,headers=h,tablefmt="rounded_grid"))
+
+    if type(User) is int:#Parent login fn
         q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE admno = %s'''
         cur.execute(q,(User,))
@@ -123,16 +138,72 @@ parent_name, parent_job, phone, class FROM school WHERE admno = %s'''
     cur.close()
     con.close()
 ##Display('C')
-def Projects():
-    from datetime import date
-    today = date.today()
-    d1 = today.strftime("%d/%m/%Y")
-    print("No projects have been assigned to you till",d1)
+def Search(User='Admno'):
+    con, cur = Con_cur()
+    while True:
+        if User=='Admno':
+            n=input("Enter the Admno to be checked :")
+            if n.isdigit():
+                q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
+parent_name, parent_job, phone, class FROM school WHERE Admno = %s'''
+                cur.execute(q,(n,))
+                rs=cur.fetchall()
+        elif User=='Name':
+            n=input("Enter the Name to be checked :")
+            if n.isalpha():
+                q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
+parent_name, parent_job, phone, class FROM school WHERE name = %s'''
+                cur.execute(q,(n,))
+                rs=cur.fetchall()
+        elif User=='DOB':
+            n=input("Enter the DOB to be checked :")
+            q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
+parent_name, parent_job, phone, class FROM school WHERE dob = %s'''
+            cur.execute(q,(n,))
+            rs=cur.fetchall()
+        elif User=='PN':
+            n=input("Enter the Parent Name to be checked :")
+            if n.isalpha():
+                q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
+parent_name, parent_job, phone, class FROM school WHERE parent_name = %s'''
+                cur.execute(q,(n,))
+                rs=cur.fetchall()
 
+        elif User=='PJ':
+            n=input("Enter the Parent Job to be checked :")
+            if n.isalpha():
+                q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
+parent_name, parent_job, phone, class FROM school WHERE parent_job = %s'''
+                cur.execute(q,(n,))
+                rs=cur.fetchall()
+        elif User=='Ph':
+            n=input("Enter the Phone no to be checked :")
+            if n.isdigit():
+                q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
+parent_name, parent_job, phone, class FROM school WHERE phone = %s'''
+                cur.execute(q,(n,))
+                rs=cur.fetchall()
+        elif User=='Class':
+            n=input("Enter the Class to be checked :")
+            if n.isdigit():
+                q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
+parent_name, parent_job, phone, class FROM school WHERE class = %s'''
+                cur.execute(q,(n,))
+                rs=cur.fetchall()
+        if rs:
+            h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
+            print(tabulate(rs,headers=h,tablefmt="rounded_grid"))
+            break
+        else:
+            print("Record not found\nTry again")
+    cur.close()
+    con.close()
+
+def Projects():
+    Date()
+    print("No projects have been assigned to you till",d1)
 def Results():
-    from datetime import date
-    today = date.today()
-    d1 = today.strftime("%d/%m/%Y")
+    Date()
     print("No results have been published till",d1)
 
 def Edit(User):
@@ -149,6 +220,9 @@ def Edit(User):
             a=input("Enter student name :")
             q="UPDATE school SET name = %s WHERE admno = %s"
             cur.execute(q, (a,User))
+            # Also update name in fees table
+            q2="UPDATE fees SET name = %s WHERE admno = %s"
+            cur.execute(q2, (a,User))
             con.commit()
         elif _ch=='2':
             a=input("Enter new DOB :")
@@ -211,4 +285,3 @@ def Delete(User):
     finally:
         cur.close()
         con.close()
-
