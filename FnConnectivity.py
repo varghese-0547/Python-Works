@@ -49,9 +49,12 @@ def Login1(User):
     if rs :
         return rs
 
-def Login(User='Bob'):
+def Login(User="Bob"):
+    
+        
     a=0
     while a<3:
+
         pd=input("Enter password :")
         with open("Login.dat","rb") as fr:
             try:
@@ -66,9 +69,12 @@ def Login(User='Bob'):
                             l = Login1(User)
                             return l[1]
                         else:
+                            
                             continue
+            
             except EOFError:
                 pass
+
         a+=1
         print("Login/Password is wrong\nTry again")
     print("Acces denied. Too many failed attempts.")
