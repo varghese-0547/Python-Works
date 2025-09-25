@@ -56,6 +56,8 @@ def Login(User="Bob"):
     while a<3:
 
         pd=input("Enter password :")
+        if pd=='0':
+            return "0","False"
         with open("Login.dat","rb") as fr:
             try:
                 while True :
@@ -67,7 +69,7 @@ def Login(User="Bob"):
                                 return True
                         if k == User and v == pd:
                             l = Login1(User)
-                            return l[1]
+                            return '1',l[1]
                         else:
                             
                             continue
@@ -78,7 +80,7 @@ def Login(User="Bob"):
         a+=1
         print("Login/Password is wrong\nTry again")
     print("Acces denied. Too many failed attempts.")
-    return None
+    return "0","False"
 def Addfees(Class):
     if Class<=3:
         _fees=15000
@@ -105,10 +107,10 @@ def Display(User='A'):
     con, cur = Con_cur()
     if User=='A':#Display all
         q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
-parent_name, parent_job, phone, class FROM school'''
+parent_name, parent_job, phone, class, doa FROM school NATURAL JOIN FEES'''
         cur.execute(q)
         rs=cur.fetchall()
-        h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
+        h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class','DOA']
         print(tabulate(rs,headers=h,tablefmt="rounded_grid"))
     if User == 'Class':#Order by Class
         q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
@@ -126,13 +128,13 @@ parent_name, parent_job, phone, class FROM school ORDER BY dob'''
         print(tabulate(rs,headers=h,tablefmt="rounded_grid"))
     if User == 'S_DOA':#Order by DOA
         q='''SELECT fees.admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
-parent_name, parent_job, phone, class FROM school NATURAL JOIN FEES ORDER BY doa'''
+parent_name, parent_job, phone, class, doa FROM school NATURAL JOIN FEES ORDER BY doa'''
         cur.execute(q)
         rs=cur.fetchall()
-        h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
+        h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class','DOA' ]
         print(tabulate(rs,headers=h,tablefmt="rounded_grid"))
 
-    if type(User) is int:#Parent login fn
+    if type(User) is int:#Display fn for parent
         q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE admno = %s'''
         cur.execute(q,(User,))
@@ -148,49 +150,49 @@ def Search(User='Admno'):
     con, cur = Con_cur()
     while True:
         if User=='Admno':
-            n=input("Enter the Admno to be checked :")
-            if n.isdigit():
+            n=input("\nEnter the Admno to be checked :")
+            if n.isdigit():#Search by Admno
                 q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE Admno = %s'''
                 cur.execute(q,(n,))
                 rs=cur.fetchall()
-        elif User=='Name':
-            n=input("Enter the Name to be checked :")
+        elif User=='Name':#Search by Name
+            n=input("\nEnter the Name to be checked :")
             if n.isalpha():
                 q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE name = %s'''
                 cur.execute(q,(n,))
                 rs=cur.fetchall()
-        elif User=='DOB':
-            n=input("Enter the DOB to be checked :")
+        elif User=='DOB':#Search by DOB
+            n=input("\nEnter the DOB to be checked :")
             q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE dob = %s'''
             cur.execute(q,(n,))
             rs=cur.fetchall()
-        elif User=='PN':
-            n=input("Enter the Parent Name to be checked :")
+        elif User=='PN':#Search by Parent name
+            n=input("\nEnter the Parent Name to be checked :")
             if n.isalpha():
                 q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE parent_name = %s'''
                 cur.execute(q,(n,))
                 rs=cur.fetchall()
 
-        elif User=='PJ':
-            n=input("Enter the Parent Job to be checked :")
+        elif User=='PJ':#Search by Parent Job
+            n=input("\nEnter the Parent Job to be checked :")
             if n.isalpha():
                 q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE parent_job = %s'''
                 cur.execute(q,(n,))
                 rs=cur.fetchall()
-        elif User=='Ph':
-            n=input("Enter the Phone no to be checked :")
+        elif User=='Ph':#Search by Phone no
+            n=input("\nEnter the Phone no to be checked :")
             if n.isdigit():
                 q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE phone = %s'''
                 cur.execute(q,(n,))
                 rs=cur.fetchall()
-        elif User=='Class':
-            n=input("Enter the Class to be checked :")
+        elif User=='Class':#Search by Class
+            n=input("\nEnter the Class to be checked :")
             if n.isdigit():
                 q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE class = %s'''
