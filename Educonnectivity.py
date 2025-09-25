@@ -1,17 +1,17 @@
 from Fnconnectivity import *
 while True:
-    print("\n===============================EDU Public School===============================")
+    print("\n","="*30," EDU Public Schoo ","="*30)
     print("1 = Admin Login\n2 = Parent Login")
     c=input("Enter choice :")
-    if c=='1':
+    if c=='1':###ADMIN###
         a = Login()
         if a is not True:
             print("Invalid choice. Try again.")
             continue
         else:
             pass
-        print("\n===============================  Host  ===============================")
-        while True:
+        print("\n","="*30," Host  ","="*30)
+        while True: 
             print("_"*55)
             print("-"*85)
             print('''\n0 = Log Out
@@ -20,6 +20,8 @@ while True:
 3 = Search in records
 4 = Edit Records
 5=Delete Records''')
+            print("_"*55)
+            print("-"*85)
             ch=input("\nPlease enter your choice :")
             if ch=='1':
                 while True:
@@ -95,22 +97,27 @@ while True:
                         
             elif ch=="4":#Edit
                 print("-"*85)
+                print("Step 1")
                 while True:
+                    print("\nStep 2")
                     User=input("\nEnter Admission number of\nthe record to be editted :")
+                    print("\nStep 3")
                     if User.isdigit():
                         User=int(User)
-                        break
-                    if User=='0' or User in ['exit','Exit','EXIT']:
+                        print("\nStep 4")
+                        print("\nStep 5")
+                        if User=='0' or User in ['exit','Exit','EXIT']:
+                            print("\nStep 6")
+                            break
+                        Edit(User)
                         break
                     else:
                         print("Sorry, enter a valid Admno")
                         continue
-                    Edit(User)
-                    break
             elif ch=="5":#Delete
                 print("-"*85)
                 while True:
-                    User=int(input("\nEnter Admission number of\nthe record to be deleted :"))
+                    User=input("\nEnter Admission number of\nthe record to be deleted :")
                     if User.isdigit():
                         User=int(User)
                         
@@ -127,8 +134,10 @@ while True:
     if c=='2':#Login
         I=None
         while True:
+            F='0'
             User=input("\nEnter your admission number :")
             if User=='0' or User in ['exit','Exit','EXIT']:
+                F='1'
                 break
             if User.isdigit():
                 User=int(User)
@@ -136,26 +145,27 @@ while True:
             else :
                 print("Enter a valid Admno")
                 continue
-            I=Login(User)
-            if I is None or I=="None":
-                print("Try again")
+            I,N=Login(User)
+            if I=='0':
+                continue
+            if I=='1':
                 break
-            
-        #while True:
-            print("\n=============================== Parent ===============================\n")
-            print("Welcome",I)
-            print("_"*55)
-            print("-"*85)
-            print("\n0 = Log Out\n1 = Fees\n2 = Projects\n3 = Display your details")
-            ch=input("Please enter your choice :")
-            if ch=='1':
-                  Fees(User)
-            elif ch=='2':
-                 Projects()
-            elif ch=='3':
-               Display(User)
-            elif ch=='0' or ch in ['exit','Exit','EXIT']:
-                break
+        if F != "1":
+            while True:####Parent####
+                print("\n","="*30," Parent ","="*30,"\n")
+                print("Welcome",N)
+                print("_"*55)
+                print("-"*85)
+                print("\n0 = Log Out\n1 = Fees\n2 = Projects\n3 = Display your details")
+                ch=input("Please enter your choice :")
+                if ch=='1':
+                      Fees(User)
+                elif ch=='2':
+                     Projects()
+                elif ch=='3':
+                   Display(User)
+                elif ch=='0' or ch in ['exit','Exit','EXIT']:
+                    break
             
     if c=='0':
         break
