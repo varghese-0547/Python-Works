@@ -50,11 +50,8 @@ def Login1(User):
         return rs
 
 def Login(User="Bob"):
-    
-        
     a=0
     while a<3:
-
         pd=input("Enter password :")
         if pd=='0':
             return "0","False"
@@ -71,12 +68,13 @@ def Login(User="Bob"):
                             l = Login1(User)
                             return '1',l[1]
                         else:
-                            
                             continue
-            
             except EOFError:
                 pass
-
+            except Exception as E:
+                if E=="'NoneType' object is not subscriptable":
+                    print("System error\nTry again")
+                print(E)
         a+=1
         print("Login/Password is wrong\nTry again")
     print("Acces denied. Too many failed attempts.")
@@ -97,7 +95,7 @@ def Fees(User):
     rs=cur.fetchone()
     if rs:
         h=['Admno','Name','Class','Fee','Date of Admission']
-        print(tabulate([rs],headers=h,tablefmt="rounded_grid"))
+        print(tabulate([rs],headers=h,))
     else:
         print("No fee record found")
     cur.close()
@@ -111,28 +109,28 @@ parent_name, parent_job, phone, class, doa FROM school NATURAL JOIN FEES'''
         cur.execute(q)
         rs=cur.fetchall()
         h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class','DOA']
-        print(tabulate(rs,headers=h,tablefmt="rounded_grid"))
+        print(tabulate(rs,headers=h))
     if User == 'Class':#Order by Class
         q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school ORDER BY class'''
         cur.execute(q)
         rs=cur.fetchall()
         h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
-        print(tabulate(rs,headers=h,tablefmt="rounded_grid"))
+        print(tabulate(rs,headers=h))
     if User == 'DOB':#Order by DOB
         q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school ORDER BY dob'''
         cur.execute(q)
         rs=cur.fetchall()
         h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
-        print(tabulate(rs,headers=h,tablefmt="rounded_grid"))
+        print(tabulate(rs,headers=h))
     if User == 'S_DOA':#Order by DOA
         q='''SELECT fees.admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class, doa FROM school NATURAL JOIN FEES ORDER BY doa'''
         cur.execute(q)
         rs=cur.fetchall()
         h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class','DOA' ]
-        print(tabulate(rs,headers=h,tablefmt="rounded_grid"))
+        print(tabulate(rs,headers=h))
 
     if type(User) is int:#Display fn for parent
         q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
@@ -149,58 +147,117 @@ parent_name, parent_job, phone, class FROM school WHERE admno = %s'''
 def Search(User='Admno'):
     con, cur = Con_cur()
     while True:
-        if User=='Admno':
-            n=input("\nEnter the Admno to be checked :")
-            if n.isdigit():#Search by Admno
+        if User=='Admno':#Search by Admno
+            n=input("\nEnter the Admno to be checked X:")
+            if n=='0' or n in ['exit','Exit','EXIT']:
+                return "CONTINUE"
+            if n.isdigit():
                 q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE Admno = %s'''
                 cur.execute(q,(n,))
                 rs=cur.fetchall()
+            h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
+            cur.close()
+            con.close()
+            return tabulate(rs,headers=h)
+            break
         elif User=='Name':#Search by Name
             n=input("\nEnter the Name to be checked :")
+            if n=='0'or n in ['exit','Exit','EXIT']:
+                return "CONTINUE"
             if n.isalpha():
                 q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE name = %s'''
                 cur.execute(q,(n,))
                 rs=cur.fetchall()
+            h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
+            cur.close()
+            con.close()
+            return tabulate(rs,headers=h)
+            break
         elif User=='DOB':#Search by DOB
             n=input("\nEnter the DOB to be checked :")
+            if n=='0' or n in ['exit','Exit','EXIT']:
+                return "CONTINUE"
             q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE dob = %s'''
+
             cur.execute(q,(n,))
             rs=cur.fetchall()
+            h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
+            cur.close()
+            con.close()
+            return tabulate(rs,headers=h)
+            break
         elif User=='PN':#Search by Parent name
             n=input("\nEnter the Parent Name to be checked :")
+            if n=='0' or n in ['exit','Exit','EXIT']:
+                return "CONTINUE"
             if n.isalpha():
                 q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE parent_name = %s'''
                 cur.execute(q,(n,))
                 rs=cur.fetchall()
-
+                h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
+                cur.close()
+                con.close()
+                return tabulate(rs,headers=h)
+                break
         elif User=='PJ':#Search by Parent Job
             n=input("\nEnter the Parent Job to be checked :")
+            if n=='0' or n in ['exit','Exit','EXIT']:
+                return "CONTINUE"
             if n.isalpha():
                 q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE parent_job = %s'''
                 cur.execute(q,(n,))
                 rs=cur.fetchall()
+                h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
+                cur.close()
+                con.close()
+                return tabulate(rs,headers=h)
+                break
         elif User=='Ph':#Search by Phone no
             n=input("\nEnter the Phone no to be checked :")
+            if n=='0' or n in ['exit','Exit','EXIT']:
+                return "CONTINUE"
             if n.isdigit():
                 q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE phone = %s'''
                 cur.execute(q,(n,))
                 rs=cur.fetchall()
+                h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
+                cur.close()
+                con.close()
+                return tabulate(rs,headers=h)
+                break
         elif User=='Class':#Search by Class
             n=input("\nEnter the Class to be checked :")
+            if n=='0' or n in ['exit','Exit','EXIT']:
+                return "CONTINUE"
             if n.isdigit():
                 q='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
 parent_name, parent_job, phone, class FROM school WHERE class = %s'''
                 cur.execute(q,(n,))
                 rs=cur.fetchall()
-        if rs:
-            h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
-            print(tabulate(rs,headers=h,tablefmt="rounded_grid"))
+                h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class']
+                cur.close()
+                con.close()
+                return tabulate(rs,headers=h)
+                break
+        elif User=='DOA':#Search by DOA
+            n=input("\nEnter the DOA to be checked :")
+            if n=='0' or n in ['exit','Exit','EXIT']:
+                return "CONTINUE"
+            q='''SELECT fees.admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
+parent_name, parent_job, phone, class, doa FROM school
+NATURAL JOIN FEES WHERE doa = %s'''
+            cur.execute(q,(n,))
+            rs=cur.fetchall()
+            h=['Admno','Name','DOB','Parent Name','Parent Job','Phone no','Class','DOA']
+            cur.close()
+            con.close()
+            return tabulate(rs,headers=h)
             break
         else:
             print("Record not found\nTry again")
@@ -216,46 +273,74 @@ def Results():
 
 def Edit(User):
     con, cur = Con_cur()
-    q1="SELECT * FROM school WHERE admno = %s"
+    q1='''SELECT admno, name, DATE_FORMAT(dob, '%d-%m-%Y'),
+parent_name, parent_job, phone, class FROM school WHERE Admno = %s'''
     cur.execute(q1,(User,))
     rs=cur.fetchone()
     print(rs)
     if rs[0]==User:
-        print("You can modify the following data")
-        print("1 = Student name\n2 = DOB\n3 = Parent name\n4 = Parent job\n5 = Phone")
-        _ch=input("Enter choice :")
-        if _ch=='1':
-            a=input("Enter student name :")
-            q="UPDATE school SET name = %s WHERE admno = %s"
-            cur.execute(q, (a,User))
-            # Also update name in fees table
-            q2="UPDATE fees SET name = %s WHERE admno = %s"
-            cur.execute(q2, (a,User))
-            con.commit()
-        elif _ch=='2':
-            a=input("Enter new DOB :")
-            q="UPDATE school SET dob = %s WHERE admno = %s"
-            cur.execute(q, (a,User))
-            con.commit()
-        elif _ch=='3':
-            a=input("Enter Parent name :")
-            q="UPDATE school SET parent_name = %s WHERE admno = %s"
-            cur.execute(q, (a,User))
-            con.commit()
-        elif _ch=='4':
-            a=input("Enter Parent job :")
-            q="UPDATE school SET parent_job = %s WHERE admno = %s"
-            cur.execute(q, (a,User))
-            con.commit()
-        elif _ch=='5':
-            a=input("Enter new Phno :")
-            q="UPDATE school SET phone = %s WHERE admno = %s"
-            cur.execute(q, (a,User))
-            con.commit()
-        cur.close()
-        con.close()
-        print("Successfully updated")
-
+        while True:
+            print('='*50,'\n')
+            print("You can modify the following data")
+            print("1 = Student name\n2 = DOB\n3 = Parent name\n4 = Parent job\n5 = Phone")
+            print('='*50,'\n')
+            _ch=input("Enter choice :")
+            print('='*50,'\n')
+            if _ch=='0' or _ch in ['exit','Exit','EXIT']:
+                break
+            if _ch=='1':
+                a=input("Enter student name :")
+                if a=='0' or a in ['exit','Exit','EXIT']:
+                    continue
+                q="UPDATE school SET name = %s WHERE admno = %s"
+                cur.execute(q, (a,User))
+                q2="UPDATE fees SET name = %s WHERE admno = %s"
+                cur.execute(q2, (a,User))
+                con.commit()
+                cur.close()
+                con.close()
+                return "Successfully updated"
+            elif _ch=='2':
+                a=input("Enter new DOB :")
+                if a=='0' or a in ['exit','Exit','EXIT']:
+                    continue
+                q="UPDATE school SET dob = %s WHERE admno = %s"
+                cur.execute(q, (a,User))
+                con.commit()
+                cur.close()
+                con.close()
+                return "Successfully updated"
+            elif _ch=='3':
+                a=input("Enter Parent name :")
+                if a=='0' or a in ['exit','Exit','EXIT']:
+                    continue
+                q="UPDATE school SET parent_name = %s WHERE admno = %s"
+                cur.execute(q, (a,User))
+                con.commit()
+                cur.close()
+                con.close()
+                return "Successfully updated"
+            elif _ch=='4':
+                a=input("Enter Parent job :")
+                if a=='0' or a in ['exit','Exit','EXIT']:
+                    continue
+                q="UPDATE school SET parent_job = %s WHERE admno = %s"
+                cur.execute(q, (a,User))
+                con.commit()
+                cur.close()
+                con.close()
+                return "Successfully updated"
+            elif _ch=='5':
+                a=input("Enter new Phno :")
+                if a=='0' or a in ['exit','Exit','EXIT']:
+                    continue
+                q="UPDATE school SET phone = %s WHERE admno = %s"
+                cur.execute(q, (a,User))
+                con.commit()
+                cur.close()
+                con.close()
+                return "Successfully updated"
+        return "Edits are discarded"
 def Delete(User):
     con, cur = Con_cur()
     try:
