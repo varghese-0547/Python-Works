@@ -1,31 +1,31 @@
 from Fnconnectivity import *
 while True:
-    print("\n","="*30," EDU Public Schoo ","="*30)
+    print("\n","="*16," EDU Public Schoo ","="*16)
     print("1 = Admin Login\n2 = Parent Login")
     c=input("Enter choice :")
     if c=='1':###ADMIN###
         a = Login()
         if a is not True:
-            print("Invalid choice. Try again.")
+            #print("Invalid choice. Try again.")
+            continue
+        if a is None:
             continue
         else:
             pass
-        print("\n","="*30," Host  ","="*30)
+        print("\n","="*22,"Host","="*22)
         while True: 
-            print("_"*55)
-            print("-"*85)
+            print("="*50)
             print('''\n0 = Log Out
 1 = Admission
 2 = Display records
 3 = Search in records
 4 = Edit Records
 5=Delete Records''')
-            print("_"*55)
-            print("-"*85)
+            print("="*50)
             ch=input("\nPlease enter your choice :")
             if ch=='1':
                 while True:
-                    print("-"*85)
+                    print("="*50)
                     print("\nSelect the class",1,2,3,4,5,6,7,8,9,10)
                     Class=input("\nEnter the class : ")
                     if Class in ['1','2','3','4','5','6','7','8','9','10']:
@@ -37,11 +37,11 @@ while True:
                     else :
                         print("Sorry choose a valid option")
             elif ch=='2':#Display
-                print("-"*85)
+                print("="*50)
                 print('''\n1. Display all records\n2. Sort by Class
 3. Sort by Date of Birth\n4. Sort by Date of Admission''')
                 while True:
-                    print("-"*85)
+                    print("="*50)
                     op=input("\nChoice :")
                     if op == '1':
                         Display()
@@ -60,78 +60,94 @@ while True:
                     else:
                         print("Sorry choose a valid option")
             elif ch=='3':#Search
-                print('''\n1. Search by Admno\n2. Search by Name\n3. Search by DOB
+                X=''
+                while True:
+                    print('''\n1. Search by Admno\n2. Search by Name\n3. Search by DOB
 4. Search by Parent Name\n5. Search by Parent Job\n6. Search by Phone no
 7.Search by Class\n8. Search by DOA''')
-                while True:
-                    print("-"*85)
-                    op=input("\nChoice :")
+                    print("="*50)
+                    op=input("\nChoice op:")
                     if op == '1':
-                        Search()
-                        break
+                        X=Search()
+                        
                     elif op == '2':
-                        Search("Name")
-                        break
+                        X=Search("Name")
+                        
                     elif op =='3':
-                        Search("DOB")
-                        break
+                        X=Search("DOB")
+                        
                     elif op=='4':
-                        Search("PN")
-                        break
+                        X=Search("PN")
+                        
                     elif op=='5':
-                        Search("PJ")
-                        break
+                        X=Search("PJ")
+                        
                     elif op=='6':
-                        Search("Ph")
-                        break
+                        X=Search("Ph")
+                        
                     elif op=='7':
-                        Search("Class")
-                        break
+                        X=Search("Class")
+                        
                     elif op=='8':
-                        Search()
-                        break
+                        X=Search("DOA")
+                        
                     elif op=='0' or op in ['exit','Exit','EXIT']:
                         break
+                        
                     else:
                         print("Sorry, choose a valid option")
-                        
-            elif ch=="4":#Edit
-                print("-"*85)
-                print("Step 1")
-                while True:
-                    print("\nStep 2")
-                    User=input("\nEnter Admission number of\nthe record to be editted :")
-                    print("\nStep 3")
-                    if User.isdigit():
-                        User=int(User)
-                        print("\nStep 4")
-                        print("\nStep 5")
-                        if User=='0' or User in ['exit','Exit','EXIT']:
-                            print("\nStep 6")
-                            break
-                        Edit(User)
-                        break
-                    else:
-                        print("Sorry, enter a valid Admno")
+                    if X=="CONTINUE":
                         continue
-            elif ch=="5":#Delete
-                print("-"*85)
+                    break
+                print(X)
+            elif ch=="4":#Edit
+                print("="*50)
                 while True:
-                    User=input("\nEnter Admission number of\nthe record to be deleted :")
-                    if User.isdigit():
-                        User=int(User)
-                        
-                        break
+                    User=input("\nEnter Admission number of\nthe record to be editted :")
                     if User=='0' or User in ['exit','Exit','EXIT']:
                         break
+                    if User.isdigit():
+                        User=int(User)
+                        print(Edit(User))
+                        break
                     else:
                         print("Sorry, enter a valid Admno")
                         continue
-                    Delete(User)
-                    break
-            elif ch=='0':
+            elif ch=="5":  # Delete
+                print("="*50)
+                a=''
+                while True:
+                    if '0' in a:
+                        break
+                    a=Login()
+                    if (a is not True) or (a is None)  :
+                        continue
+                    
+                    else:
+                        pass
+                    User = input("\nEnter Admission number of\nthe record to be deleted: ")
+                    if User == '0' or User in ['exit', 'Exit', 'EXIT']:
+                        print("Nothing was deleted")
+                        break
+                    sure=input("Are you sure y/n: ")
+                    if sure not in ['y','Y','yes','Yes','YES']:
+                        print("Nothing was deleted")
+                        break
+                    if User.isdigit():
+                        User = int(User)
+                        Delete(User)
+                        print("Successfully Deleted")
+                        break
+
+                    else:
+                        print("Sorry, enter a valid Admno")
+                        continue
+            elif ch=='0' or ch in ['exit', 'Exit', 'EXIT']:  #HOST
                 break
-    if c=='2':#Login
+            else:
+                print("Invalid choice. Please try again.")     
+
+    if c=='2':#PARENT
         I=None
         while True:
             F='0'
@@ -141,21 +157,19 @@ while True:
                 break
             if User.isdigit():
                 User=int(User)
-                   
             else :
                 print("Enter a valid Admno")
                 continue
             I,N=Login(User)
             if I=='0':
                 continue
-            if I=='1':
+            if I=='1' :
                 break
         if F != "1":
+            print("\n","="*21," Parent ","="*21,"\n")
+            print("Welcome",N)
             while True:####Parent####
-                print("\n","="*30," Parent ","="*30,"\n")
-                print("Welcome",N)
-                print("_"*55)
-                print("-"*85)
+                print("="*50)
                 print("\n0 = Log Out\n1 = Fees\n2 = Projects\n3 = Display your details")
                 ch=input("Please enter your choice :")
                 if ch=='1':
@@ -166,6 +180,7 @@ while True:
                    Display(User)
                 elif ch=='0' or ch in ['exit','Exit','EXIT']:
                     break
+                print("\n","="*21," Parent ","="*21,"\n")
             
     if c=='0':
         break
